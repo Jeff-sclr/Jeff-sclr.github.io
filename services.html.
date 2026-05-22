@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services | Jeff Sclr</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <h1>My Services</h1>
+        
+        <section id="writing">
+            <h2>✍️ Writing & Content</h2>
+            <p>Blog articles, copywriting, academic editing, and strategy.</p>
+        </section>
+
+        <section id="tutoring">
+            <h2>🎓 Academic Tutoring</h2>
+            <p>Expert support across various subjects and levels.</p>
+        </section>
+
+        <section id="ai-services">
+            <h2>🤖 AI Training & Services</h2>
+            <p>Prompt engineering, content creation, and data annotation.</p>
+        </section>
+
+        <section id="development">
+            <h2>💻 Web & Software Development</h2>
+            <p>Frontend/Backend development and website design.</p>
+        </section>
+    </main>
+
+</body>
+</html>
