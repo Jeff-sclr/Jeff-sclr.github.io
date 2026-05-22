@@ -3,36 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html">Home</a> | 
+        <a href="about.html">About</a> | 
+        <a href="services.html">Services</a> | 
+        <a href="portfolio.html">Portfolio</a> | 
+        <a href="testimonials.html">Testimonials</a> | 
+        <a href="blog.html">Blog</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="extras.html">Extras</a>
     </nav>
 
-    <main>
-        <h1>Portfolio & Work Samples</h1>
-        
-        <section id="tabs">
-            <button>Writing</button> <button>Tutoring</button> 
-            <button>AI Projects</button> <button>Dev Projects</button>
-        </section>
+    <hr>
 
-        <section id="sample-entry">
-            <h2>Project Title</h2>
-            <p><strong>Role:</strong> [e.g., Lead Developer/Writer]</p>
-            <p><strong>Tools Used:</strong> [e.g., Python, GPT-4, HTML/CSS]</p>
-            <p><strong>The Outcome:</strong> [e.g., "Increased user engagement by 20%"]</p>
-            <a href="#">View Link / Screenshot</a>
-        </section>
-    </main>
+    <h1>🗂️ PORTFOLIO & WORK SAMPLES</h1>
+    <p>Below are selected examples of my work across all service areas. Each project demonstrates a specific skill set and real-world application.</p>
+
+    <h2>📝 Writing Samples</h2>
+    
+    <h3>Project 1: SEO Blog Article</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Title</strong></td><td>"10 Proven Strategies to Grow Your Business Online in 2024"</td></tr>
+        <tr><td><strong>Client</strong></td><td>E-commerce Startup (Confidential)</td></tr>
+        <tr><td><strong>Word Count</strong></td><td>1,800 words</td></tr>
+        <tr><td><strong>Skills Used</strong></td><td>SEO writing, keyword research, long-form content</td></tr>
+        <tr><td><strong>Result</strong></td><td>Ranked on page 1 of Google within 6 weeks of publishing</td></tr>
+    </table>
+
+    <h3>Project 2: Sales Copywriting</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Title</strong></td><td>Landing Page Copy — SaaS Product Launch</td></tr>
+        <tr><td><strong>Client</strong></td><td>Tech Startup (Confidential)</td></tr>
+        <tr><td><strong>Skills Used</strong></td><td>Persuasive copy, CTA writing, value proposition</td></tr>
+        <tr><td><strong>Result</strong></td><td>Conversion rate improved by 35% compared to the previous page</td></tr>
+        <tr><td><strong>Link</strong></td><td>yourwebsite.com/samples/landing-page</td></tr>
+    </table>
+
+    <h3>Project 3: Academic Essay</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Title</strong></td><td>"The Impact of Artificial Intelligence on Modern Education"</td></tr>
+        <tr><td><strong>Level</strong></td><td>University of Nairobi</td></tr>
+        <tr><td><strong>Word Count</strong></td><td>3,500 words</td></tr>
+        <tr><td><strong>Skills Used</strong></td><td>Academic research, APA citation, critical analysis</td></tr>
+    </table>
+
+    <h2>🎓 Tutoring Portfolio</h2>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Students Tutored</strong></td><td>50+ students across high school and university levels</td></tr>
+        <tr><td><strong>Average Grade Improvement</strong></td><td>1–2 grade levels within 2–3 months</td></tr>
+        <tr><td><strong>Session Format</strong></td><td>Online (Zoom) and in-person</td></tr>
+        <tr><td><strong>Top Subjects</strong></td><td>English, Essay Writing, Research Methods</td></tr>
+        <tr><td><strong>Student Feedback</strong></td><td>"My grades improved from a C to an A in just 2 months." Nairobi University Student.</td></tr>
+    </table>
+
+    <h2>🤖 AI Projects</h2>
+    
+    <h3>Project 1: AI Prompt Library</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Description</strong></td><td>Built a library of 200+ optimized prompts for marketing, content, and business use</td></tr>
+        <tr><td><strong>Tools Used</strong></td><td>ChatGPT, Claude AI, Notion</td></tr>
+        <tr><td><strong>Outcome</strong></td><td>Used by 3 agencies to automate content generation workflows</td></tr>
+        <tr><td><strong>Link</strong></td><td>yourwebsite.com/samples/ai-prompts</td></tr>
+    </table>
+
+    <h3>Project 2: AI Data Annotation</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Description</strong></td><td>Labeled and categorized 5,000+ data points for an NLP training dataset</td></tr>
+        <tr><td><strong>Platform</strong></td><td>Scale AI / Remotasks</td></tr>
+        <tr><td><strong>Skills Used</strong></td><td>Data annotation, quality assurance, and AI training methodology</td></tr>
+        <tr><td><strong>Outcome</strong></td><td>Contributed to improving model accuracy for a sentiment analysis tool</td></tr>
+    </table>
+
+    <h2>💻 Development Projects</h2>
+    
+    <h3>Project 1: Personal Portfolio Website</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Description</strong></td><td>Designed and built a responsive personal portfolio site from scratch</td></tr>
+        <tr><td><strong>Tech Stack</strong></td><td>HTML, CSS, JavaScript</td></tr>
+        <tr><td><strong>Features</strong></td><td>Mobile-responsive, contact form, project gallery, blog section</td></tr>
+        <tr><td><strong>Link</strong></td><td>yourwebsite.com</td></tr>
+    </table>
+
+    <h3>Project 2: Business Website — Local SME</h3>
+    <table border="1" cellpadding="5">
+        <tr><td><strong>Description</strong></td><td>Built a 5-page business website for a Nairobi-based consulting firm</td></tr>
+        <tr><td><strong>Tech Stack</strong></td><td>WordPress + Elementor + WooCommerce</td></tr>
+        <tr><td><strong>Features</strong></td><td>Service pages, testimonials, blog, contact form, Google Maps</td></tr>
+        <tr><td><strong>Result</strong></td><td>Client reported 40% increase in online inquiries within 3 months</td></tr>
+        <tr><td><strong>Link</strong></td><td>yourwebsite.com/samples/business-site</td></tr>
+    </table>
 
 </body>
 </html>
