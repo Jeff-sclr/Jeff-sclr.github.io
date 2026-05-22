@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio | Jeff Sclr</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <h1>Portfolio & Work Samples</h1>
+        
+        <section id="tabs">
+            <button>Writing</button> <button>Tutoring</button> 
+            <button>AI Projects</button> <button>Dev Projects</button>
+        </section>
+
+        <section id="sample-entry">
+            <h2>Project Title</h2>
+            <p><strong>Role:</strong> [e.g., Lead Developer/Writer]</p>
+            <p><strong>Tools Used:</strong> [e.g., Python, GPT-4, HTML/CSS]</p>
+            <p><strong>The Outcome:</strong> [e.g., "Increased user engagement by 20%"]</p>
+            <a href="#">View Link / Screenshot</a>
+        </section>
+    </main>
+
+</body>
+</html>
