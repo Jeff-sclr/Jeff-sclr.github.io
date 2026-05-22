@@ -3,43 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <title>Services | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html">Home</a> | 
+        <a href="about.html">About</a> | 
+        <a href="services.html">Services</a> | 
+        <a href="portfolio.html">Portfolio</a> | 
+        <a href="testimonials.html">Testimonials</a> | 
+        <a href="blog.html">Blog</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="extras.html">Extras</a>
     </nav>
 
-    <main>
-        <h1>My Services</h1>
-        
-        <section id="writing">
-            <h2>✍️ Writing & Content</h2>
-            <p>Blog articles, copywriting, academic editing, and strategy.</p>
-        </section>
+    <hr>
 
-        <section id="tutoring">
-            <h2>🎓 Academic Tutoring</h2>
-            <p>Expert support across various subjects and levels.</p>
-        </section>
+    <h1>💼 SERVICES</h1>
+    <p>I offer four core service areas. Each can be engaged independently or combined for a comprehensive solution.</p>
 
-        <section id="ai-services">
-            <h2>🤖 AI Training & Services</h2>
-            <p>Prompt engineering, content creation, and data annotation.</p>
-        </section>
+    <h2>✍️ A. Writing & Content Services</h2>
+    <h3>Blog Article Writing</h3>
+    <ul>
+        <li>Long-form SEO blog articles (500–3,000+ words)</li>
+        <li>Research-backed, engaging, and reader-friendly content</li>
+        <li>Niche writing: tech, health, business, lifestyle, education, and more</li>
+        <li>Optimized with keywords, headers, and meta descriptions</li>
+    </ul>
 
-        <section id="development">
-            <h2>💻 Web & Software Development</h2>
-            <p>Frontend/Backend development and website design.</p>
-        </section>
-    </main>
+    <h3>Copywriting</h3>
+    <ul>
+        <li>Sales pages and landing page copy that converts</li>
+        <li>Email marketing sequences and newsletters</li>
+        <li>Social media captions and ad copy</li>
+        <li>Product descriptions and e-commerce content</li>
+        <li>Brand voice development and messaging guides</li>
+    </ul>
+
+    <h3>Academic Writing & Editing</h3>
+    <ul>
+        <li>Essays, research papers, dissertations, and theses</li>
+        <li>Editing and proofreading for grammar, clarity, and structure</li>
+        <li>Citation formatting (APA, MLA, Harvard, Chicago)</li>
+        <li>Literature reviews and case studies</li>
+        <li>Paraphrasing and summarizing academic content</li>
+    </ul>
+
+    <h3>Content Strategy & Planning</h3>
+    <ul>
+        <li>Content calendar creation and management</li>
+        <li>Audience research and persona development</li>
+        <li>Competitor content analysis</li>
+        <li>Editorial guidelines and brand voice documentation</li>
+    </ul>
+
+    <h2>🎓 B. Academic Tutoring</h2>
+    <p>I offer personalized, one-on-one tutoring sessions designed to close knowledge gaps, build confidence, and improve academic performance.</p>
+    
+    <h3>Subjects Covered</h3>
+    <ul>
+        <li>English Language & Literature</li>
+        <li>Essay Writing & Critical Thinking</li>
+        <li>Business Studies & Entrepreneurship</li>
+        <li>Computer Science & IT Fundamentals</li>
+        <li>Research Methods & Academic Skills</li>
+    </ul>
+
+    <h3>Tutoring Details</h3>
+    <ul>
+        <li><strong>Levels:</strong> High School, College, University</li>
+        <li><strong>Format:</strong> Online (Zoom/Google Meet) or In-Person (Nairobi)</li>
+        <li><strong>Session length:</strong> 1–2 hours per session</li>
+        <li><strong>Packages:</strong> Single session, Weekly, Monthly</li>
+        <li><strong>Materials:</strong> Custom notes, practice exercises, and feedback provided</li>
+    </ul>
+
+    <h2>🤖 C. AI Training & Services</h2>
+    <p>I help businesses and individuals understand, implement, and leverage Artificial Intelligence in practical, results-driven ways.</p>
+    
+    <h3>AI Services Offered</h3>
+    <ul>
+        <li><strong>AI Prompt Engineering</strong> — crafting prompts that get precise, high-quality outputs</li>
+        <li><strong>AI Content Creation</strong> — using AI tools to produce blogs, ads, reports, and scripts</li>
+        <li><strong>Data Annotation & AI Training</strong> — labeling datasets for machine learning models</li>
+        <li><strong>AI Tool Consultation</strong> — helping clients choose the right AI tools for their workflow</li>
+        <li><strong>AI-Assisted Copywriting</strong> — blending AI efficiency with human creativity and editing</li>
+    </ul>
+
+    <h2>💻 D. Web & Software Development</h2>
+    <p>I design and develop clean, functional, and responsive websites and web applications tailored to your business needs.</p>
+
+    <h3>Development Services</h3>
+    <ul>
+        <li>Custom website design and development (from scratch)</li>
+        <li>WordPress website creation, customization, and maintenance</li>
+        <li>Landing pages optimized for conversions</li>
+        <li>Portfolio and personal brand websites</li>
+        <li>E-commerce store setup and integration</li>
+        <li>Bug fixing, updates, and ongoing website maintenance</li>
+    </ul>
+
+    <h3>Tech Stack</h3>
+    <ul>
+        <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, React</li>
+        <li><strong>Backend:</strong> Python, Node.js (basic), PHP</li>
+        <li><strong>CMS:</strong> WordPress, Webflow, Wix</li>
+        <li><strong>Databases:</strong> MySQL, Firebase (basic)</li>
+        <li><strong>Version Control:</strong> Git & GitHub</li>
+    </ul>
 
 </body>
 </html>
