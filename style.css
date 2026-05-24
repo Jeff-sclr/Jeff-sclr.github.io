@@ -16,12 +16,19 @@ body {
     max-width: 900px;
     margin: 20px auto;
     padding: 40px;
-    /* Removed white background and box shadow */
-    background: transparent; 
-    box-shadow: none;
-    /* Text styling to ensure readability over image */
-    color: #ffffff;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    
+    /* Layered image effect */
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    background-blend-mode: lighten;
+    
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    
+    /* Text color for white container */
+    color: #333;
 }
 
 /* --- 2. Nav Bar Styling --- */
@@ -43,12 +50,12 @@ nav a:hover {
     color: #3498db;
 }
 
-/* --- 3. Professional Tables (Tables remain white for readability) --- */
+/* --- 3. Professional Tables --- */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background: #ffffff; /* Keeping table white so data is readable */
+    background: #ffffff;
     color: #333;
 }
 
@@ -78,8 +85,8 @@ tr:nth-child(even) { background-color: #f9f9f9; }
 }
 
 /* --- 5. Headings --- */
-h1 { color: #ffffff; border-bottom: 2px solid #3498db; padding-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-h2 { color: #ffffff; margin-top: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); } 
+h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+h2 { color: #2c3e50; margin-top: 40px; }
 
 .text-center {
     text-align: center;
