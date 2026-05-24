@@ -1,25 +1,31 @@
-/* --- 1. Global Reset & Modern Typography --- */
+/* --- 1. Global Reset & Background --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
     margin: 0;
     padding: 0;
     color: #333;
-    background-color: #f4f7f6; /* Soft professional background */
+    /* Updated to use your background image */
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .container {
     max-width: 900px;
     margin: 20px auto;
     padding: 40px;
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Added slight transparency so the background is visible through the card */
+    background: rgba(255, 255, 255, 0.95); 
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
     border-radius: 8px;
 }
 
 /* --- 2. Nav Bar Styling --- */
 nav {
-    background: #2c3e50; /* Deep professional navy */
+    background: #2c3e50;
     padding: 15px;
     text-align: center;
 }
@@ -33,7 +39,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #3498db; /* Blue highlight on hover */
+    color: #3498db;
 }
 
 /* --- 3. Professional Tables --- */
@@ -50,12 +56,12 @@ table, th, td {
     text-align: left;
 }
 
-tr:nth-child(even) { background-color: #fafafa; }
+tr:nth-child(even) { background-color: #f9f9f9; }
 
 /* --- 4. Upwork Button Styling --- */
 .upwork-link {
     display: inline-block;
-    background-color: #14a800; /* Upwork Green */
+    background-color: #14a800;
     color: white;
     padding: 8px 16px;
     text-decoration: none;
