@@ -1,36 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>About Me | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeff Sclr | Writer · Tutor · Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2d41;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f7f3ec;
+    --text: #1a1a2e;
+    --text-muted: #5a6478;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.2);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.3rem;
+    color: var(--gold); letter-spacing: 0.02em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.75);
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: 0.45rem 1.1rem; border-radius: 4px; font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; position: relative; overflow: hidden;
+    padding-top: 64px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 55%; height: 100%;
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero-text {
+    padding: 5rem 3rem 5rem 5rem;
+    position: relative; z-index: 2;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.35rem 1rem; border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.8rem);
+    color: var(--white); line-height: 1.15;
+    margin-bottom: 1.5rem; font-weight: 700;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.65);
+    line-height: 1.75; max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.8rem 2rem; border-radius: 4px;
+    font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+    padding: 0.8rem 2rem; border-radius: 4px;
+    font-weight: 500; font-size: 0.9rem; text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 4rem 3rem;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; width: 100%; max-width: 380px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.5rem 1.25rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 2.4rem;
+    color: var(--gold); font-weight: 700; line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* ── WHAT I DO BAND ── */
+  .service-band {
+    background: var(--gold);
+    padding: 1rem 2rem;
+    display: flex; gap: 2.5rem;
+    align-items: center; justify-content: center;
+    flex-wrap: wrap; overflow: hidden;
+  }
+  .band-item {
+    font-size: 0.8rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--navy); display: flex; align-items: center; gap: 0.6rem;
+  }
+  .band-sep { color: var(--navy); opacity: 0.4; font-size: 1.2rem; }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 6rem 5rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(1.9rem, 3vw, 2.8rem);
+    color: var(--navy); font-weight: 700; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-sub {
+    font-size: 1rem; color: var(--text-muted);
+    line-height: 1.7; max-width: 580px; margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-section {
+    background: var(--navy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-section .section-title { color: var(--white); }
+  .about-section .section-sub { color: rgba(255,255,255,0.55); }
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .value-item {
+    border-left: 3px solid var(--gold);
+    padding-left: 1rem;
+  }
+  .value-item h4 { font-size: 0.9rem; font-weight: 600; color: var(--white); margin-bottom: 0.25rem; }
+  .value-item p { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+  .about-highlight {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 2.5rem;
+  }
+  .about-highlight blockquote {
+    font-family: var(--serif); font-size: 1.25rem;
+    color: var(--white); line-height: 1.65;
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+  .about-highlight blockquote span { color: var(--gold); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold-light); font-size: 0.78rem;
+    padding: 0.3rem 0.75rem; border-radius: 3px;
+    font-weight: 500; letter-spacing: 0.04em;
+  }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px; padding: 2.25rem;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1rem; display: block;
+  }
+  .service-card h3 {
+    font-family: var(--serif); font-size: 1.3rem;
+    color: var(--navy); margin-bottom: 0.75rem; font-weight: 700;
+  }
+  .service-card p {
+    font-size: 0.9rem; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 1.25rem;
+  }
+  .service-list { list-style: none; }
+  .service-list li {
+    font-size: 0.85rem; color: var(--text-muted);
+    padding: 0.3rem 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .service-list li::before { content: '→'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.85rem; font-weight: 600; color: var(--gold);
+    text-decoration: none; margin-top: 1.25rem;
+    transition: gap 0.2s;
+  }
+  .service-link:hover { gap: 0.6rem; }
+
+  /* ── WHY ME ── */
+  .why-section {
+    background: var(--navy-mid);
+    text-align: center;
+  }
+  .why-section .section-title { color: var(--white); }
+  .why-section .section-sub { color: rgba(255,255,255,0.55); margin: 0 auto 3rem; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 900px; margin: 0 auto;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 2rem 1.5rem; text-align: center;
+  }
+  .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .why-card h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+  .why-card p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* ── TOOLS STRIP ── */
+  .tools-section {
+    background: var(--cream); border-top: 1px solid rgba(0,0,0,0.07);
+    padding: 4rem 5rem;
+  }
+  .tools-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .tools-header h3 {
+    font-family: var(--serif); font-size: 1.4rem; color: var(--navy);
+  }
+  .tools-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .tool-badge {
+    background: var(--white); border: 1px solid rgba(0,0,0,0.1);
+    color: var(--text); font-size: 0.82rem; font-weight: 500;
+    padding: 0.4rem 0.9rem; border-radius: 20px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tool-badge:hover { border-color: var(--gold); color: var(--navy); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy); text-align: center;
+    padding: 7rem 5rem;
+  }
+  .cta-section h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white); margin-bottom: 1rem; font-weight: 700;
+  }
+  .cta-section h2 em { color: var(--gold); font-style: italic; }
+  .cta-section p { color: rgba(255,255,255,0.55); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #07111b;
+    padding: 2rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: var(--serif); color: var(--gold); font-size: 1.1rem; text-decoration: none; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label { animation: fadeUp 0.5s ease both 0.1s; }
+  .hero h1 { animation: fadeUp 0.6s ease both 0.25s; }
+  .hero p { animation: fadeUp 0.6s ease both 0.4s; }
+  .hero-btns { animation: fadeUp 0.6s ease both 0.55s; }
+  .hero-stats { animation: fadeUp 0.7s ease both 0.45s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 64px; }
+    .hero::before { display: none; }
+    .hero-text { padding: 3rem 1.5rem 2rem; }
+    .hero-visual { padding: 2rem 1.5rem 3rem; }
+    .hero-stats { max-width: 100%; }
+    section { padding: 4rem 1.5rem; }
+    .about-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .tools-section { padding: 3rem 1.5rem; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About</a> | 
-        <a href="services.html">Services</a> | 
-        <a href="portfolio.html">Portfolio</a> | 
-        <a href="testimonials.html">Testimonials</a> | 
-        <a href="blog.html">Blog</a> | 
-        <a href="contact.html">Contact</a> | 
-        <a href="extras.html">Extras</a>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Jeff Sclr</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
 
-    <div class="container">
-        <h1>Welcome to My Portfolio</h1>
-        
-        <p class="text-center">The One Expert
-Who Does It All.
-Students, startups, businesses, and creators hire me when they need more than just one skill — and they're tired of managing five different people to get it done.
-
-I write the words that make your brand impossible to ignore. I built the website your business deserves, but never had. I train the AI that saves your team hours every single week. And I teach the student who just needs someone to finally explain it clearly.
-
-One person. One point of contact. Zero excuses. Every result owned — start to finish — by me.</p>
-        
-        <p class="text-center">Use the navigation menu above to explore my services, read my blog, or get in touch!</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-label">Writer · Developer · Tutor · AI Specialist · Nairobi &amp; Remote</span>
+    <h1>
+      The One Expert<br>
+      <em>Who Does It All.</em>
+    </h1>
+    <p>
+      Students, startups, businesses, and creators hire me when they need
+      more than just one skill — and they're tired of managing five
+      different people to get it done.
+    </p>
+    <p style="margin-top:0.85rem;">
+      I write the words that make your brand impossible to ignore.
+      I build the website your business deserves but never had.
+      I train the AI that saves your team hours every single week.
+      And I teach the student who just needs someone to finally explain it clearly.
+    </p>
+    <p style="margin-top:0.85rem;">
+      One person. One point of contact. Zero excuses.
+      Every result owned — start to finish — by me.
+    </p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="contact.html" class="btn-outline">Let's Talk →</a>
     </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Core Services</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Deadline Hit Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems Solved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="service-band">
+  <div class="band-item">✍️ Content Writing</div>
+  <div class="band-sep">·</div>
+  <div class="band-item">🎓 Academic Tutoring</div>
+  <div class="band-sep">·</div>
+  <div class="band-item">🤖 AI Training</div>
+  <div class="band-sep">·</div>
+  <div class="band-item">💻 Web Development</div>
+  <div class="band-sep">·</div>
+  <div class="band-item">📝 Copywriting</div>
+  <div class="band-sep">·</div>
+  <div class="band-item">🔍 SEO Strategy</div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div>
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">I Started With Words.<br><em>Then Built Everything Else.</em></h2>
+    <p class="section-sub">
+      Five years ago I picked up a pen (and a keyboard). Since then I've
+      written hundreds of articles, tutored dozens of students through
+      their toughest exams, built websites for businesses across East
+      Africa, and trained AI models for global clients — all as one
+      person who genuinely loves the craft of every single one of them.
+      That rare combination is exactly what my clients pay for.
+    </p>
+    <div class="values-grid">
+      <div class="value-item">
+        <h4>Quality First</h4>
+        <p>Every deliverable meets the highest standard before leaving my desk.</p>
+      </div>
+      <div class="value-item">
+        <h4>Reliability</h4>
+        <p>I respect deadlines. Always, without exception.</p>
+      </div>
+      <div class="value-item">
+        <h4>Collaboration</h4>
+        <p>I work with you, not just for you.</p>
+      </div>
+      <div class="value-item">
+        <h4>Results-Driven</h4>
+        <p>Success is measured by the impact I create for you.</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-highlight">
+    <blockquote>
+      "Most clients come to me for one thing and stay for three.
+      When you find someone who <span>actually delivers</span>,
+      you don't let them go."
+    </blockquote>
+    <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:1.25rem;">
+      I work with <strong style="color:rgba(255,255,255,0.75);">startups</strong> who need a website and words to match,
+      <strong style="color:rgba(255,255,255,0.75);">students</strong> who need someone who explains things clearly,
+      <strong style="color:rgba(255,255,255,0.75);">businesses</strong> that want AI integrated without the confusion,
+      and <strong style="color:rgba(255,255,255,0.75);">agencies</strong> that need a reliable creative partner behind the scenes.
+    </p>
+    <div class="skill-tags">
+      <span class="tag">HTML · CSS · JS</span>
+      <span class="tag">React · Python</span>
+      <span class="tag">WordPress</span>
+      <span class="tag">SEO Writing</span>
+      <span class="tag">APA · MLA · Harvard</span>
+      <span class="tag">AI Prompt Engineering</span>
+      <span class="tag">Data Annotation</span>
+      <span class="tag">Canva · Figma</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <p class="section-label">What I Offer</p>
+  <h2 class="section-title">Four Services.<br><em>Built Around Your Goals.</em></h2>
+  <p class="section-sub">Whether you're a student who needs a tutor, a business that needs a website, a brand that needs better content, or a team that wants to integrate AI — I have one service for each of you, and the expertise to back it up.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">✍️</span>
+      <h3>Writing &amp; Content</h3>
+      <p><strong>For:</strong> Businesses, bloggers, agencies &amp; brands who need content that actually gets read — and actually ranks. I don't just fill pages; I write with a purpose: to attract, engage, and convert your audience.</p>
+      <ul class="service-list">
+        <li>Long-form SEO blog articles (500–3,000+ words)</li>
+        <li>Sales pages &amp; landing page copy that converts</li>
+        <li>Academic writing, editing &amp; citation formatting</li>
+        <li>Email sequences, newsletters &amp; social media copy</li>
+        <li>Content calendars &amp; brand voice guides</li>
+      </ul>
+      <a href="services.html" class="service-link">View Writing Services →</a>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🎓</span>
+      <h3>Academic Tutoring</h3>
+      <p><strong>For:</strong> High school, college, and university students in Nairobi (and online) who are struggling, behind, or simply want to perform better. I break down complex subjects into clear, simple lessons — and I don't stop until it clicks.</p>
+      <ul class="service-list">
+        <li>English Language, Literature &amp; Essay Writing</li>
+        <li>Business Studies, Computer Science &amp; IT</li>
+        <li>Research Methods &amp; Academic Skills</li>
+        <li>Online (Zoom/Meet) or In-Person · Nairobi</li>
+        <li>Custom notes, exercises &amp; direct feedback</li>
+      </ul>
+      <a href="services.html" class="service-link">Book a Session →</a>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🤖</span>
+      <h3>AI Training &amp; Services</h3>
+      <p><strong>For:</strong> Companies, freelancers, and teams who want to harness AI without the guesswork. I help you use AI tools the right way — whether that's training models, writing better prompts, or building AI-powered content pipelines that save hours every week.</p>
+      <ul class="service-list">
+        <li>AI Prompt Engineering for precise, high-quality outputs</li>
+        <li>Data annotation &amp; machine learning model training</li>
+        <li>AI-assisted content creation at scale</li>
+        <li>AI tool consultation &amp; workflow integration</li>
+        <li>Human-edited, AI-accelerated copywriting</li>
+      </ul>
+      <a href="services.html" class="service-link">Explore AI Services →</a>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">💻</span>
+      <h3>Web Development</h3>
+      <p><strong>For:</strong> Startups, small businesses, and professionals who need a website that looks good, loads fast, and actually works for them. I design and build from scratch — no bloated templates, no cut corners — just clean, responsive code that represents your brand.</p>
+      <ul class="service-list">
+        <li>Custom website design &amp; development from scratch</li>
+        <li>WordPress creation, customization &amp; maintenance</li>
+        <li>High-converting landing pages</li>
+        <li>Portfolio &amp; personal brand websites</li>
+        <li>E-commerce setup, bug fixes &amp; ongoing support</li>
+      </ul>
+      <a href="services.html" class="service-link">See Dev Services →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section class="why-section">
+  <p class="section-label">Why Choose Jeff</p>
+  <h2 class="section-title" style="color:white;">You Don't Need an Agency.<br><em>You Need the Right Person.</em></h2>
+  <p class="section-sub">Agencies split your project between five strangers. Freelance platforms gamble your deadline on an unknown. I'm one dedicated professional who owns your project from first brief to final delivery — and genuinely cares about the outcome.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🔗</div>
+      <h4>No Hand-Offs. Ever.</h4>
+      <p>The person you brief is the person who delivers. No miscommunication, no "let me check with the team," no dropped balls.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h4>AI-Enhanced, Human-Led</h4>
+      <p>I use AI tools to work smarter and faster — but every word, every line of code, and every lesson is reviewed and refined by me personally.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <h4>Nairobi Roots. Global Reach.</h4>
+      <p>I understand the local market deeply and serve clients worldwide. Online, in-person, or both — I adapt to how you work best.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section">
+  <div class="tools-header">
+    <div>
+      <p class="section-label">My Toolkit</p>
+      <h3>The tools I use to get the job done</h3>
+    </div>
+  </div>
+  <div class="tools-row">
+    <span class="tool-badge">MS Word</span>
+    <span class="tool-badge">Google Docs</span>
+    <span class="tool-badge">Grammarly</span>
+    <span class="tool-badge">Surfer SEO</span>
+    <span class="tool-badge">HTML5 / CSS3</span>
+    <span class="tool-badge">JavaScript</span>
+    <span class="tool-badge">Python</span>
+    <span class="tool-badge">React</span>
+    <span class="tool-badge">WordPress</span>
+    <span class="tool-badge">ChatGPT</span>
+    <span class="tool-badge">Claude</span>
+    <span class="tool-badge">Jasper</span>
+    <span class="tool-badge">Midjourney</span>
+    <span class="tool-badge">Canva</span>
+    <span class="tool-badge">Figma</span>
+    <span class="tool-badge">Trello</span>
+    <span class="tool-badge">Notion</span>
+    <span class="tool-badge">Asana</span>
+    <span class="tool-badge">Git / GitHub</span>
+    <span class="tool-badge">Firebase</span>
+    <span class="tool-badge">MySQL</span>
+    <span class="tool-badge">Adobe Express</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Let's Turn Your <em>Ideas</em><br>Into Results.</h2>
+  <p>A student ready to improve. A business ready to grow. A brand ready to be heard. If that's you — I'm ready. Tell me what you need and let's build something worth talking about.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-primary">Start a Project →</a>
+    <a href="portfolio.html" class="btn-outline">See My Work</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Jeff Sclr</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p>© 2025 Jeff Sclr. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
