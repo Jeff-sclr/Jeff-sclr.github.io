@@ -1,119 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>About Me | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Jeff Sclr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2d41;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f7f3ec;
+    --text: #1a1a2e;
+    --text-muted: #5a6478;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.2);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,42,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--gold); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,0.75); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 0.45rem 1.1rem; border-radius: 4px; font-weight: 600 !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--navy);
+    padding: 130px 5rem 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; top: -50%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-hero::after {
+    content: 'SERVICES';
+    position: absolute; right: 5rem; bottom: -1rem;
+    font-family: var(--serif); font-size: 8rem; font-weight: 700;
+    color: rgba(255,255,255,0.03); letter-spacing: 0.1em;
+    line-height: 1; pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+    border: 1px solid var(--border); padding: 0.35rem 1rem;
+    border-radius: 2px; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 {
+    font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.8rem);
+    color: var(--white); line-height: 1.15; margin-bottom: 1.25rem; font-weight: 700;
+  }
+  .page-hero h1 em { color: var(--gold); font-style: italic; }
+  .page-hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.6);
+    line-height: 1.75; max-width: 580px;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.9rem, 3vw, 2.6rem); color: var(--navy); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 580px; margin-bottom: 3rem; }
+
+  /* ── SERVICE TABS NAV ── */
+  .tabs-bar {
+    background: var(--white);
+    border-bottom: 2px solid rgba(0,0,0,0.07);
+    display: flex; justify-content: center; gap: 0;
+    position: sticky; top: 64px; z-index: 90;
+  }
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 1.1rem 2rem; font-family: var(--sans);
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -2px;
+  }
+  .tab-btn:hover { color: var(--navy); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── SERVICE SECTIONS ── */
+  .service-section { padding: 5rem; }
+  .service-section:nth-child(even) { background: var(--white); }
+
+  .service-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start; margin-bottom: 4rem;
+  }
+  .service-header-left {}
+  .service-icon-big {
+    width: 72px; height: 72px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    border-radius: 12px; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1.5rem;
+  }
+  .service-header-right {
+    background: var(--navy);
+    border-radius: 12px; padding: 2rem;
+  }
+  .service-header-right h4 {
+    font-family: var(--serif); font-size: 1rem;
+    color: var(--gold); margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .service-header-right ul { list-style: none; }
+  .service-header-right ul li {
+    font-size: 0.88rem; color: rgba(255,255,255,0.6);
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .service-header-right ul li:last-child { border-bottom: none; }
+  .service-header-right ul li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+  /* Packages grid */
+  .packages-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; margin-bottom: 3rem;
+  }
+  .package-card {
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 10px; padding: 2rem;
+    background: var(--cream);
+    position: relative; transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .package-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+  .package-card.featured {
+    background: var(--navy); border-color: var(--gold);
+  }
+  .package-card.featured .pkg-name { color: var(--gold); }
+  .package-card.featured .pkg-price { color: var(--white); }
+  .package-card.featured .pkg-desc { color: rgba(255,255,255,0.55); }
+  .package-card.featured .pkg-feature { color: rgba(255,255,255,0.65); border-bottom-color: rgba(255,255,255,0.07); }
+  .package-card.featured .pkg-feature::before { color: var(--gold); }
+  .featured-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--navy);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.2rem 0.8rem; border-radius: 20px;
+  }
+  .pkg-name { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .pkg-price { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+  .pkg-price span { font-size: 0.85rem; font-weight: 400; color: var(--text-muted); font-family: var(--sans); }
+  .pkg-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; }
+  .pkg-features { list-style: none; margin-bottom: 1.5rem; }
+  .pkg-feature {
+    font-size: 0.83rem; color: var(--text-muted);
+    padding: 0.35rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .pkg-feature::before { content: '→'; color: var(--gold); flex-shrink: 0; font-size: 0.75rem; margin-top: 2px; }
+  .pkg-btn {
+    display: block; text-align: center; text-decoration: none;
+    padding: 0.7rem 1rem; border-radius: 4px; font-size: 0.85rem;
+    font-weight: 600; transition: all 0.2s;
+    border: 1px solid var(--gold); color: var(--gold);
+  }
+  .pkg-btn:hover { background: var(--gold); color: var(--navy); }
+  .package-card.featured .pkg-btn { background: var(--gold); color: var(--navy); }
+  .package-card.featured .pkg-btn:hover { background: var(--gold-light); }
+
+  /* Process strip */
+  .process-strip {
+    background: var(--navy-mid);
+    padding: 4rem 5rem;
+  }
+  .process-strip .section-title { color: var(--white); text-align: center; margin-bottom: 3rem; }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; max-width: 900px; margin: 0 auto;
+  }
+  .process-step { text-align: center; position: relative; }
+  .process-step:not(:last-child)::after {
+    content: '→';
+    position: absolute; right: -1rem; top: 1.5rem;
+    color: var(--gold); opacity: 0.5; font-size: 1.2rem;
+  }
+  .step-num {
+    width: 48px; height: 48px;
+    border: 2px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 1.1rem; color: var(--gold);
+    margin: 0 auto 1rem;
+  }
+  .process-step h5 { font-size: 0.9rem; color: var(--white); font-weight: 600; margin-bottom: 0.4rem; }
+  .process-step p { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  /* FAQ */
+  .faq-section { padding: 5rem; background: var(--cream); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 1000px; }
+  .faq-item {
+    background: var(--white); border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 8px; padding: 1.5rem;
+    cursor: pointer;
+  }
+  .faq-q {
+    font-size: 0.92rem; font-weight: 600; color: var(--navy);
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  .faq-q::after { content: '+'; color: var(--gold); font-size: 1.3rem; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-top: 0.75rem; display: none; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* CTA */
+  .cta-section { background: var(--navy); text-align: center; padding: 7rem 5rem; }
+  .cta-section h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); color: var(--white); margin-bottom: 1rem; font-weight: 700; }
+  .cta-section h2 em { color: var(--gold); font-style: italic; }
+  .cta-section p { color: rgba(255,255,255,0.55); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 0.8rem 2rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background 0.2s, transform 0.2s; letter-spacing: 0.03em; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.8rem 2rem; border-radius: 4px; font-weight: 500; font-size: 0.9rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; letter-spacing: 0.03em; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: #07111b; padding: 2rem 5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: var(--serif); color: var(--gold); font-size: 1.1rem; text-decoration: none; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page-hero .hero-label { animation: fadeUp 0.5s ease both 0.1s; }
+  .page-hero h1 { animation: fadeUp 0.6s ease both 0.25s; }
+  .page-hero p { animation: fadeUp 0.6s ease both 0.4s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .page-hero { padding: 110px 1.5rem 60px; }
+    .page-hero::after { display: none; }
+    .tabs-bar { overflow-x: auto; justify-content: flex-start; }
+    .tab-btn { white-space: nowrap; padding: 1rem 1.25rem; }
+    .service-section { padding: 3rem 1.5rem; }
+    .service-header { grid-template-columns: 1fr; gap: 2rem; }
+    .packages-grid { grid-template-columns: 1fr; }
+    .process-strip { padding: 3rem 1.5rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-step::after { display: none; }
+    .faq-section { padding: 3rem 1.5rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
 <body>
-    </body>
-</html>
 
-    <nav>
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About</a> | 
-        <a href="services.html">Services</a> | 
-        <a href="portfolio.html">Portfolio</a> | 
-        <a href="testimonials.html">Testimonials</a> | 
-        <a href="blog.html">Blog</a> | 
-        <a href="contact.html">Contact</a> | 
-        <a href="extras.html">Extras</a>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Jeff Sclr</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
 
-    <hr>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="hero-label">What I Offer</span>
+  <h1>Four Services.<br><em>One Expert.</em></h1>
+  <p>Whether you need words that sell, a website that works, a tutor who actually explains things, or AI tools that save you hours — everything you need is right here, delivered by one person who owns your results end to end.</p>
+</div>
 
-    <h1>💼 SERVICES</h1>
-    <p>I offer four core service areas. Each can be engaged independently or combined for a comprehensive solution.</p>
+<!-- TABS -->
+<div class="tabs-bar" id="tabs">
+  <button class="tab-btn active" onclick="scrollTo('writing')">✍️ Writing</button>
+  <button class="tab-btn" onclick="scrollTo('tutoring')">🎓 Tutoring</button>
+  <button class="tab-btn" onclick="scrollTo('ai')">🤖 AI Services</button>
+  <button class="tab-btn" onclick="scrollTo('webdev')">💻 Web Dev</button>
+</div>
 
-    <h2>✍️ A. Writing & Content Services</h2>
-    <h3>Blog Article Writing</h3>
-    <ul>
+<!-- ───── WRITING ───── -->
+<section class="service-section" id="writing">
+  <div class="service-header">
+    <div class="service-header-left">
+      <div class="section-label">Service 01</div>
+      <div class="service-icon-big">✍️</div>
+      <h2 class="section-title">Writing &amp;<br><em>Content Creation</em></h2>
+      <p class="section-sub">Words are the most powerful sales tool your business has — and most businesses waste them. I write content that gets found on Google, gets read by humans, and gets people to act. From SEO blog posts to brand copy that actually sounds like you.</p>
+    </div>
+    <div class="service-header-right">
+      <h4>What's included across writing services:</h4>
+      <ul>
         <li>Long-form SEO blog articles (500–3,000+ words)</li>
-        <li>Research-backed, engaging, and reader-friendly content</li>
-        <li>Niche writing: tech, health, business, lifestyle, education, and more</li>
-        <li>Optimized with keywords, headers, and meta descriptions</li>
-    </ul>
+        <li>Sales pages &amp; landing copy that converts</li>
+        <li>Academic essays, research papers &amp; citations (APA, MLA, Harvard)</li>
+        <li>Email sequences, newsletters &amp; drip campaigns</li>
+        <li>Social media captions, threads &amp; LinkedIn posts</li>
+        <li>Brand voice guides &amp; content calendars</li>
+        <li>Website copy — homepage, about, services pages</li>
+        <li>Product descriptions &amp; e-commerce content</li>
+      </ul>
+    </div>
+  </div>
 
-    <h3>Copywriting</h3>
-    <ul>
-        <li>Sales pages and landing page copy that converts</li>
-        <li>Email marketing sequences and newsletters</li>
-        <li>Social media captions and ad copy</li>
-        <li>Product descriptions and e-commerce content</li>
-        <li>Brand voice development and messaging guides</li>
-    </ul>
+  <div class="packages-grid">
+    <div class="package-card">
+      <div class="pkg-name">Starter</div>
+      <div class="pkg-price">$30 <span>/ article</span></div>
+      <div class="pkg-desc">For bloggers and small businesses who need quality content without the agency price tag.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">1 SEO blog post (up to 1,000 words)</li>
+        <li class="pkg-feature">Keyword-optimised structure</li>
+        <li class="pkg-feature">1 round of revisions</li>
+        <li class="pkg-feature">Delivered in 3–4 business days</li>
+        <li class="pkg-feature">Google Docs format</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Get Started →</a>
+    </div>
+    <div class="package-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="pkg-name">Growth</div>
+      <div class="pkg-price">$120 <span>/ month</span></div>
+      <div class="pkg-desc">For brands that want consistent, high-quality content that builds authority over time.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">4 long-form articles (up to 2,000 words each)</li>
+        <li class="pkg-feature">SEO research &amp; keyword planning</li>
+        <li class="pkg-feature">Meta descriptions &amp; image alt text</li>
+        <li class="pkg-feature">2 rounds of revisions per article</li>
+        <li class="pkg-feature">Delivered weekly, on schedule</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Get Started →</a>
+    </div>
+    <div class="package-card">
+      <div class="pkg-name">Custom</div>
+      <div class="pkg-price">Let's Talk</div>
+      <div class="pkg-desc">For agencies, startups, or businesses with specific, ongoing, or large-volume content needs.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">Volume pricing available</li>
+        <li class="pkg-feature">Brand voice onboarding</li>
+        <li class="pkg-feature">Sales copy &amp; landing pages</li>
+        <li class="pkg-feature">Content strategy included</li>
+        <li class="pkg-feature">Priority turnaround</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Enquire →</a>
+    </div>
+  </div>
+</section>
 
-    <h3>Academic Writing & Editing</h3>
-    <ul>
-        <li>Essays, research papers, dissertations, and theses</li>
-        <li>Editing and proofreading for grammar, clarity, and structure</li>
-        <li>Citation formatting (APA, MLA, Harvard, Chicago)</li>
-        <li>Literature reviews and case studies</li>
-        <li>Paraphrasing and summarizing academic content</li>
-    </ul>
+<!-- ───── TUTORING ───── -->
+<section class="service-section" id="tutoring">
+  <div class="service-header">
+    <div class="service-header-left">
+      <div class="section-label">Service 02</div>
+      <div class="service-icon-big">🎓</div>
+      <h2 class="section-title">Academic<br><em>Tutoring</em></h2>
+      <p class="section-sub">I don't just teach — I explain. There's a difference. I break down complex subjects into clear, simple steps, stay patient until it clicks, and give you custom notes and exercises that actually match what you're being tested on.</p>
+    </div>
+    <div class="service-header-right">
+      <h4>Subjects &amp; areas I cover:</h4>
+      <ul>
+        <li>English Language, Literature &amp; Essay Writing</li>
+        <li>Business Studies, Commerce &amp; Economics</li>
+        <li>Computer Science, IT &amp; Digital Literacy</li>
+        <li>Research Methods &amp; Academic Writing Skills</li>
+        <li>APA, MLA &amp; Harvard citation formatting</li>
+        <li>Exam preparation &amp; revision strategy</li>
+        <li>Online via Zoom/Google Meet</li>
+        <li>In-person · Nairobi, Kenya</li>
+      </ul>
+    </div>
+  </div>
 
-    <h3>Content Strategy & Planning</h3>
-    <ul>
-        <li>Content calendar creation and management</li>
-        <li>Audience research and persona development</li>
-        <li>Competitor content analysis</li>
-        <li>Editorial guidelines and brand voice documentation</li>
-    </ul>
+  <div class="packages-grid">
+    <div class="package-card">
+      <div class="pkg-name">Single Session</div>
+      <div class="pkg-price">$15 <span>/ hour</span></div>
+      <div class="pkg-desc">One focused session to tackle a specific topic, exam question, or assignment you're stuck on.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">60-minute deep-dive session</li>
+        <li class="pkg-feature">Custom explanation of topic</li>
+        <li class="pkg-feature">Session notes shared afterward</li>
+        <li class="pkg-feature">Zoom, Meet, or in-person</li>
+        <li class="pkg-feature">Book same-day if available</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Book Now →</a>
+    </div>
+    <div class="package-card featured">
+      <div class="featured-badge">Best Value</div>
+      <div class="pkg-name">Monthly Plan</div>
+      <div class="pkg-price">$50 <span>/ month</span></div>
+      <div class="pkg-desc">Consistent weekly sessions to build real understanding, improve grades, and build confidence throughout a term.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">4 sessions per month (1hr each)</li>
+        <li class="pkg-feature">Personalised study plan</li>
+        <li class="pkg-feature">Custom notes &amp; practice exercises</li>
+        <li class="pkg-feature">WhatsApp check-ins between sessions</li>
+        <li class="pkg-feature">Progress tracking &amp; feedback</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Enrol Now →</a>
+    </div>
+    <div class="package-card">
+      <div class="pkg-name">Exam Intensive</div>
+      <div class="pkg-price">$35 <span>/ 3 sessions</span></div>
+      <div class="pkg-desc">Laser-focused exam prep in the weeks before your test. Past papers, common mistakes, and strategy.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">3 targeted revision sessions</li>
+        <li class="pkg-feature">Past paper walkthroughs</li>
+        <li class="pkg-feature">Key exam tips &amp; marking schemes</li>
+        <li class="pkg-feature">Quick-reference revision notes</li>
+        <li class="pkg-feature">Scheduled within 2 weeks</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Get Exam Ready →</a>
+    </div>
+  </div>
+</section>
 
-    <h2>🎓 B. Academic Tutoring</h2>
-    <p>I offer personalized, one-on-one tutoring sessions designed to close knowledge gaps, build confidence, and improve academic performance.</p>
-    
-    <h3>Subjects Covered</h3>
-    <ul>
-        <li>English Language & Literature</li>
-        <li>Essay Writing & Critical Thinking</li>
-        <li>Business Studies & Entrepreneurship</li>
-        <li>Computer Science & IT Fundamentals</li>
-        <li>Research Methods & Academic Skills</li>
-    </ul>
+<!-- ───── AI SERVICES ───── -->
+<section class="service-section" id="ai">
+  <div class="service-header">
+    <div class="service-header-left">
+      <div class="section-label">Service 03</div>
+      <div class="service-icon-big">🤖</div>
+      <h2 class="section-title">AI Training &amp;<br><em>Consulting</em></h2>
+      <p class="section-sub">AI isn't magic — but in the right hands, it's close. I help businesses integrate AI tools properly, train models with quality data, and write prompts so precise the output barely needs editing. Stop guessing; start leveraging.</p>
+    </div>
+    <div class="service-header-right">
+      <h4>What I can do for your team:</h4>
+      <ul>
+        <li>Prompt engineering for ChatGPT, Claude, Gemini &amp; more</li>
+        <li>Data annotation &amp; labelling for ML models</li>
+        <li>AI-assisted content pipelines that scale</li>
+        <li>Workflow automation with AI tools</li>
+        <li>RLHF (Reinforcement Learning from Human Feedback)</li>
+        <li>AI consultation — choosing the right tools</li>
+        <li>Staff training on effective AI usage</li>
+        <li>Custom AI content calendars &amp; templates</li>
+      </ul>
+    </div>
+  </div>
 
-    <h3>Tutoring Details</h3>
-    <ul>
-        <li><strong>Levels:</strong> High School, College, University</li>
-        <li><strong>Format:</strong> Online (Zoom/Google Meet) or In-Person (Nairobi)</li>
-        <li><strong>Session length:</strong> 1–2 hours per session</li>
-        <li><strong>Packages:</strong> Single session, Weekly, Monthly</li>
-        <li><strong>Materials:</strong> Custom notes, practice exercises, and feedback provided</li>
-    </ul>
+  <div class="packages-grid">
+    <div class="package-card">
+      <div class="pkg-name">Prompt Package</div>
+      <div class="pkg-price">$40 <span>/ package</span></div>
+      <div class="pkg-desc">A library of precision-engineered prompts tailored to your business, role, or content type.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">10 custom-crafted prompts</li>
+        <li class="pkg-feature">Tailored to your industry &amp; use case</li>
+        <li class="pkg-feature">Works with ChatGPT, Claude, Gemini</li>
+        <li class="pkg-feature">Usage guide included</li>
+        <li class="pkg-feature">1 round of refinements</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Order Prompts →</a>
+    </div>
+    <div class="package-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="pkg-name">AI Integration</div>
+      <div class="pkg-price">$150 <span>/ project</span></div>
+      <div class="pkg-desc">Full AI workflow setup for your team or business — from tool selection to live prompts to team training.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">Needs assessment &amp; tool recommendation</li>
+        <li class="pkg-feature">Prompt library build-out (20+ prompts)</li>
+        <li class="pkg-feature">Workflow documentation</li>
+        <li class="pkg-feature">Live walkthrough / team training session</li>
+        <li class="pkg-feature">2 weeks of post-launch support</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Start Integration →</a>
+    </div>
+    <div class="package-card">
+      <div class="pkg-name">Data Annotation</div>
+      <div class="pkg-price">Let's Quote</div>
+      <div class="pkg-desc">High-quality data labelling and annotation for machine learning and AI model training projects.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">Text, image &amp; audio annotation</li>
+        <li class="pkg-feature">RLHF-style preference ranking</li>
+        <li class="pkg-feature">Consistency &amp; quality guaranteed</li>
+        <li class="pkg-feature">NDA-friendly for sensitive data</li>
+        <li class="pkg-feature">Priced per volume / complexity</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Get a Quote →</a>
+    </div>
+  </div>
+</section>
 
-    <h2>🤖 C. AI Training & Services</h2>
-    <p>I help businesses and individuals understand, implement, and leverage Artificial Intelligence in practical, results-driven ways.</p>
-    
-    <h3>AI Services Offered</h3>
-    <ul>
-        <li><strong>AI Prompt Engineering</strong> — crafting prompts that get precise, high-quality outputs</li>
-        <li><strong>AI Content Creation</strong> — using AI tools to produce blogs, ads, reports, and scripts</li>
-        <li><strong>Data Annotation & AI Training</strong> — labeling datasets for machine learning models</li>
-        <li><strong>AI Tool Consultation</strong> — helping clients choose the right AI tools for their workflow</li>
-        <li><strong>AI-Assisted Copywriting</strong> — blending AI efficiency with human creativity and editing</li>
-    </ul>
+<!-- ───── WEB DEV ───── -->
+<section class="service-section" id="webdev">
+  <div class="service-header">
+    <div class="service-header-left">
+      <div class="section-label">Service 04</div>
+      <div class="service-icon-big">💻</div>
+      <h2 class="section-title">Web<br><em>Development</em></h2>
+      <p class="section-sub">No bloated page builders. No recycled templates. No cutting corners. I design and build websites from scratch — clean code, fast load times, and a final product that actually represents your brand the way it deserves to be seen.</p>
+    </div>
+    <div class="service-header-right">
+      <h4>What you get with every build:</h4>
+      <ul>
+        <li>Custom design — no templates, no shortcuts</li>
+        <li>Fully responsive: mobile, tablet, desktop</li>
+        <li>SEO-ready structure &amp; meta setup</li>
+        <li>Fast load speeds &amp; optimised assets</li>
+        <li>Contact forms, maps &amp; integrations</li>
+        <li>WordPress or plain HTML/CSS/JS</li>
+        <li>Hosting setup guidance</li>
+        <li>30-day post-launch support</li>
+      </ul>
+    </div>
+  </div>
 
-    <h2>💻 D. Web & Software Development</h2>
-    <p>I design and develop clean, functional, and responsive websites and web applications tailored to your business needs.</p>
+  <div class="packages-grid">
+    <div class="package-card">
+      <div class="pkg-name">Landing Page</div>
+      <div class="pkg-price">$80 <span>/ page</span></div>
+      <div class="pkg-desc">A single, high-converting page built to capture leads, sell a product, or showcase a service.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">1 fully designed page</li>
+        <li class="pkg-feature">Responsive across all devices</li>
+        <li class="pkg-feature">Contact form &amp; CTA integrated</li>
+        <li class="pkg-feature">Delivered in 5–7 days</li>
+        <li class="pkg-feature">Source files included</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Order Page →</a>
+    </div>
+    <div class="package-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="pkg-name">Full Website</div>
+      <div class="pkg-price">$250 <span>/ site</span></div>
+      <div class="pkg-desc">A complete, multi-page website that positions your brand, generates leads, and works hard 24/7.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">Up to 5 pages (Home, About, Services, Blog, Contact)</li>
+        <li class="pkg-feature">Custom UI design from scratch</li>
+        <li class="pkg-feature">SEO meta tags on every page</li>
+        <li class="pkg-feature">Google Analytics setup</li>
+        <li class="pkg-feature">30-day support after launch</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Build My Site →</a>
+    </div>
+    <div class="package-card">
+      <div class="pkg-name">WordPress / E-Commerce</div>
+      <div class="pkg-price">$180 <span>+ up</span></div>
+      <div class="pkg-desc">Full WordPress build or WooCommerce store setup — from theme customisation to product listings.</div>
+      <ul class="pkg-features">
+        <li class="pkg-feature">WordPress theme setup &amp; customisation</li>
+        <li class="pkg-feature">WooCommerce product setup</li>
+        <li class="pkg-feature">Plugin configuration &amp; security</li>
+        <li class="pkg-feature">Payment gateway integration</li>
+        <li class="pkg-feature">Admin training session included</li>
+      </ul>
+      <a href="contact.html" class="pkg-btn">Enquire →</a>
+    </div>
+  </div>
+</section>
 
-    <h3>Development Services</h3>
-    <ul>
-        <li>Custom website design and development (from scratch)</li>
-        <li>WordPress website creation, customization, and maintenance</li>
-        <li>Landing pages optimized for conversions</li>
-        <li>Portfolio and personal brand websites</li>
-        <li>E-commerce store setup and integration</li>
-        <li>Bug fixing, updates, and ongoing website maintenance</li>
-    </ul>
+<!-- PROCESS -->
+<div class="process-strip">
+  <p class="section-label" style="text-align:center; margin-bottom:0.5rem;">How It Works</p>
+  <h3 class="section-title" style="color:white; text-align:center; margin-bottom:3rem;">From First Message to <em>Final Delivery</em></h3>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <h5>You Reach Out</h5>
+      <p>Tell me what you need. A quick message is all it takes to get started.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <h5>We Scope It</h5>
+      <p>I ask the right questions, understand your goals, and give you a clear quote.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <h5>I Get to Work</h5>
+      <p>You receive updates, not silence. I keep you in the loop throughout.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <h5>You Get Results</h5>
+      <p>Clean deliverables, on time, every time. Revisions included as agreed.</p>
+    </div>
+  </div>
+</div>
 
-    <h3>Tech Stack</h3>
-    <ul>
-        <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, React</li>
-        <li><strong>Backend:</strong> Python, Node.js (basic), PHP</li>
-        <li><strong>CMS:</strong> WordPress, Webflow, Wix</li>
-        <li><strong>Databases:</strong> MySQL, Firebase (basic)</li>
-        <li><strong>Version Control:</strong> Git & GitHub</li>
-    </ul>
+<!-- FAQ -->
+<section class="faq-section">
+  <p class="section-label">Common Questions</p>
+  <h2 class="section-title">Before You Reach Out,<br><em>Here Are the Answers.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Do you work with clients outside Kenya?</div>
+      <div class="faq-a">Absolutely. I work with clients across Africa, the UK, the US, and beyond. Everything — writing, web development, AI consulting — is handled fully remotely. Communication via email, WhatsApp, or Zoom.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">How do payments work?</div>
+      <div class="faq-a">For new clients, I require a 50% deposit before starting. The balance is due on delivery. I accept M-Pesa, bank transfer, PayPal, and Wise for international clients.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">How long does a typical project take?</div>
+      <div class="faq-a">Blog articles: 2–4 days. Landing pages: 5–7 days. Full websites: 2–3 weeks. AI integration packages: 1–2 weeks. Rush delivery is available for an additional fee.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">What if I'm not happy with the work?</div>
+      <div class="faq-a">All services include at least one round of revisions. My goal is always your satisfaction. If something's not right, I fix it — straightforward, no drama.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Can you combine services in one package?</div>
+      <div class="faq-a">Yes, and many clients do exactly this. A website + copy + SEO strategy, or a tutoring plan + academic editing. Get in touch and I'll put together a custom quote for your needs.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Do you sign NDAs or confidentiality agreements?</div>
+      <div class="faq-a">Yes, for clients who require it — especially for data annotation, ghostwriting, or proprietary content projects. Just let me know and I'll review and sign before we start.</div>
+    </div>
+  </div>
+</section>
 
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Not Sure Which Service<br><em>You Need?</em></h2>
+  <p>That's what the first conversation is for. Tell me your situation and I'll tell you exactly what will help — no sales pitch, no pressure, just an honest answer.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-primary">Let's Talk →</a>
+    <a href="portfolio.html" class="btn-outline">See My Work First</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Jeff Sclr</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p>© 2025 Jeff Sclr. All rights reserved.</p>
+</footer>
+
+<script>
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Highlight active tab on scroll
+  const sections = ['writing','tutoring','ai','webdev'];
+  const tabs = document.querySelectorAll('.tab-btn');
+  window.addEventListener('scroll', () => {
+    let current = 'writing';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    tabs.forEach((btn, i) => {
+      btn.classList.toggle('active', sections[i] === current);
+    });
+  });
+</script>
 </body>
 </html>
