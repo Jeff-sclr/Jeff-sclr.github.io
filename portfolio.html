@@ -1,71 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Portfolio | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Jeff Sclr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2d41;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f7f3ec;
+    --text: #1a1a2e;
+    --text-muted: #5a6478;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.2);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,42,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--gold); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,0.75); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 0.45rem 1.1rem; border-radius: 4px; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--navy);
+    padding: 130px 5rem 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; top: -30%; right: -5%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-hero::after {
+    content: 'WORK';
+    position: absolute; right: 5rem; bottom: -1rem;
+    font-family: var(--serif); font-size: 10rem; font-weight: 700;
+    color: rgba(255,255,255,0.025); letter-spacing: 0.1em;
+    line-height: 1; pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+    border: 1px solid var(--border); padding: 0.35rem 1rem;
+    border-radius: 2px; margin-bottom: 1.5rem;
+  }
+  .page-hero h1 {
+    font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.8rem);
+    color: var(--white); line-height: 1.15; margin-bottom: 1.25rem; font-weight: 700;
+  }
+  .page-hero h1 em { color: var(--gold); font-style: italic; }
+  .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 560px; }
+
+  /* Stats bar */
+  .stats-bar {
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
+    margin-top: 3.5rem;
+    display: flex; justify-content: center;
+  }
+  .stat-item {
+    padding: 1.5rem 3rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: var(--serif); font-size: 2rem; color: var(--gold); font-weight: 700; line-height: 1; }
+  .stat-lbl { font-size: 0.75rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: var(--white);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 0 5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    position: sticky; top: 64px; z-index: 90;
+    overflow-x: auto;
+  }
+  .filter-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 1rem 1.25rem; font-family: var(--sans);
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px; white-space: nowrap;
+  }
+  .filter-btn:hover { color: var(--navy); }
+  .filter-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* PORTFOLIO GRID */
+  .portfolio-section { padding: 5rem; }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* PROJECT CARD */
+  .project-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 12px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+  .project-card.hidden { display: none; }
+
+  /* Card visual area */
+  .card-visual {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .card-visual .visual-icon { font-size: 3.5rem; position: relative; z-index: 2; }
+  .card-visual .visual-bg {
+    position: absolute; inset: 0;
+    opacity: 0.12;
+  }
+  /* Category colour schemes */
+  .cat-writing .card-visual { background: linear-gradient(135deg, #1b2d41, #243b55); }
+  .cat-writing .card-visual .visual-bg { background: repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%) / 8px 8px; }
+  .cat-dev .card-visual { background: linear-gradient(135deg, #0d2a1b, #1a4030); }
+  .cat-dev .card-visual .visual-bg { background: repeating-linear-gradient(90deg, #4caf78 0, #4caf78 1px, transparent 0, transparent 50%) / 8px 8px; }
+  .cat-ai .card-visual { background: linear-gradient(135deg, #1a1535, #2d2060); }
+  .cat-ai .card-visual .visual-bg { background: radial-gradient(circle at 50% 50%, rgba(150,100,255,0.5) 0%, transparent 70%); opacity: 0.3; }
+  .cat-tutoring .card-visual { background: linear-gradient(135deg, #2a1b0d, #3d2a10); }
+  .cat-tutoring .card-visual .visual-bg { background: repeating-linear-gradient(0deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%) / 8px 8px; }
+
+  .card-category-badge {
+    position: absolute; top: 1rem; left: 1rem; z-index: 3;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0.65rem;
+    border-radius: 20px; background: rgba(0,0,0,0.4);
+    color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .card-title { font-family: var(--serif); font-size: 1.1rem; color: var(--navy); font-weight: 700; margin-bottom: 0.5rem; line-height: 1.3; }
+  .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+  .card-tag {
+    font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 3px;
+    background: rgba(201,168,76,0.08); border: 1px solid var(--border);
+    color: var(--text-muted); font-weight: 500;
+  }
+  .card-result {
+    font-size: 0.8rem; color: var(--gold); font-weight: 600;
+    display: flex; align-items: center; gap: 0.4rem;
+    padding-top: 0.75rem; border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .card-result::before { content: '↗'; }
+
+  /* FEATURED PROJECT */
+  .featured-section {
+    background: var(--navy);
+    padding: 5rem;
+  }
+  .featured-section .section-label { margin-bottom: 0.5rem; }
+  .featured-section .section-title { color: var(--white); margin-bottom: 3rem; }
+  .featured-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+  }
+  .featured-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .featured-visual {
+    height: 240px;
+    background: linear-gradient(135deg, #1b2d41, #243b55);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; position: relative;
+  }
+  .featured-visual .featured-label-badge {
+    position: absolute; top: 1.25rem; left: 1.25rem;
+    background: var(--gold); color: var(--navy);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 20px;
+  }
+  .featured-body { padding: 2rem; }
+  .featured-body h3 { font-family: var(--serif); font-size: 1.4rem; color: var(--white); margin-bottom: 0.75rem; font-weight: 700; }
+  .featured-body p { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 1.25rem; }
+  .featured-results {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.75rem; margin-bottom: 1.25rem;
+  }
+  .result-chip {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.65rem 0.75rem;
+    text-align: center;
+  }
+  .result-chip .r-num { font-family: var(--serif); font-size: 1.4rem; color: var(--gold); font-weight: 700; }
+  .result-chip .r-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  .mini-featured {
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+  .mini-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+    display: flex; gap: 1.25rem; align-items: center;
+    transition: background 0.2s;
+  }
+  .mini-card:hover { background: rgba(255,255,255,0.07); }
+  .mini-icon { font-size: 2rem; flex-shrink: 0; }
+  .mini-card h5 { font-family: var(--serif); font-size: 1rem; color: var(--white); margin-bottom: 0.3rem; }
+  .mini-card p { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+  .mini-result { font-size: 0.75rem; color: var(--gold); font-weight: 600; margin-top: 0.4rem; }
+
+  /* TESTIMONIALS STRIP */
+  .testimonials-strip {
+    background: var(--cream);
+    padding: 5rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .testimonials-strip .section-title { margin-bottom: 2.5rem; }
+  .testimonial-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .t-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 10px; padding: 1.75rem;
+  }
+  .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .t-card blockquote { font-family: var(--serif); font-size: 0.95rem; font-style: italic; color: var(--navy); line-height: 1.7; margin-bottom: 1rem; }
+  .t-author { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+  .t-role { font-size: 0.75rem; color: var(--gold); margin-top: 0.2rem; }
+
+  /* CTA */
+  .cta-section { background: var(--navy); text-align: center; padding: 7rem 5rem; }
+  .cta-section h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); color: var(--white); margin-bottom: 1rem; font-weight: 700; }
+  .cta-section h2 em { color: var(--gold); font-style: italic; }
+  .cta-section p { color: rgba(255,255,255,0.55); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 0.8rem 2rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.8rem 2rem; border-radius: 4px; font-weight: 500; font-size: 0.9rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: #07111b; padding: 2rem 5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: var(--serif); color: var(--gold); font-size: 1.1rem; text-decoration: none; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page-hero .hero-label { animation: fadeUp 0.5s ease both 0.1s; }
+  .page-hero h1 { animation: fadeUp 0.6s ease both 0.25s; }
+  .page-hero p { animation: fadeUp 0.6s ease both 0.4s; }
+  .stats-bar { animation: fadeUp 0.6s ease both 0.5s; }
+
+  .project-card { animation: fadeUp 0.5s ease both; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .page-hero { padding: 110px 1.5rem 60px; }
+    .page-hero::after { display: none; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { flex: 1 1 40%; border-right: none; border-bottom: 1px solid var(--border); }
+    .filter-bar { padding: 0 1.5rem; }
+    .portfolio-section { padding: 3rem 1.5rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .featured-section { padding: 3rem 1.5rem; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .testimonials-strip { padding: 3rem 1.5rem; }
+    .testimonial-row { grid-template-columns: 1fr; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About</a> | 
-        <a href="services.html">Services</a> | 
-        <a href="portfolio.html">Portfolio</a> | 
-        <a href="testimonials.html">Testimonials</a> | 
-        <a href="blog.html">Blog</a> | 
-        <a href="contact.html">Contact</a> | 
-        <a href="extras.html">Extras</a>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Jeff Sclr</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
 
-    <div class="container">
-        <h1>🗂️ PORTFOLIO & WORK SAMPLES</h1>
-        <p>Below are selected examples of my work. Each project demonstrates a specific skill set and real-world application.</p>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="hero-label">Selected Work</span>
+  <h1>Projects That<br><em>Delivered Results.</em></h1>
+  <p>Five years of client work across four disciplines — writing, web development, AI consulting, and tutoring. These are the projects I'm most proud of and the outcomes that matter most.</p>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-lbl">Projects Completed</div></div>
+    <div class="stat-item"><div class="stat-num">100+</div><div class="stat-lbl">Articles Published</div></div>
+    <div class="stat-item"><div class="stat-num">20+</div><div class="stat-lbl">Websites Built</div></div>
+    <div class="stat-item"><div class="stat-num">30+</div><div class="stat-lbl">Students Tutored</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-lbl">Countries Served</div></div>
+  </div>
+</div>
 
-        <h2>📝 Writing Samples</h2>
-        
-        <h3>Project 1: SEO Blog Article</h3>
-        <table>
-            <tr><td><strong>Title</strong></td><td>"10 Proven Strategies to Grow Your Business Online"</td></tr>
-            <tr><td><strong>Client</strong></td><td>E-commerce Startup</td></tr>
-            <tr><td><strong>Skills</strong></td><td>SEO, Keyword Research</td></tr>
-            <tr><td><strong>Result</strong></td><td>Page 1 Google Ranking</td></tr>
-            <tr><td><strong>Link</strong></td><td><a href="https://www.upwork.com/freelancers/~01d7fbdbe7baec4c78?p=1969682972586217472" target="_blank">View on Upwork</a></td></tr>
-        </table>
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Work</button>
+  <button class="filter-btn" data-filter="writing">✍️ Writing</button>
+  <button class="filter-btn" data-filter="dev">💻 Web Dev</button>
+  <button class="filter-btn" data-filter="ai">🤖 AI</button>
+  <button class="filter-btn" data-filter="tutoring">🎓 Tutoring</button>
+</div>
 
-        <h3>Project 2: Sales Copywriting</h3>
-        <table>
-            <tr><td><strong>Title</strong></td><td>Landing Page Copy — SaaS Product Launch</td></tr>
-            <tr><td><strong>Client</strong></td><td>Tech Startup</td></tr>
-            <tr><td><strong>Skills</strong></td><td>Persuasive copy, CTA writing</td></tr>
-            <tr><td><strong>Result</strong></td><td>35% Conversion Increase</td></tr>
-            <tr><td><strong>Link</strong></td><td><a href="https://www.upwork.com/freelancers/~01d7fbdbe7baec4c78?p=1968071263261343744" target="_blank">View on Upwork</a></td></tr>
-        </table>
+<!-- PORTFOLIO GRID -->
+<section class="portfolio-section">
+  <div class="portfolio-grid">
 
-        <h3>Project 3: Academic Analysis</h3>
-        <table>
-            <tr><td><strong>Title</strong></td><td>"Impact of AI on Education"</td></tr>
-            <tr><td><strong>Link</strong></td><td><a href="https://www.upwork.com/freelancers/~01d7fbdbe7baec4c78?p=1968059540062093312" target="_blank">View on Upwork</a></td></tr>
-        </table>
-
-        <h2>🎓 Tutoring Portfolio</h2>
-        <table>
-            <tr><td><strong>Students</strong></td><td>50+ across high school & university</td></tr>
-            <tr><td><strong>Average Improvement</strong></td><td>1–2 grade levels</td></tr>
-        </table>
-
-        <h2>🤖 AI Projects</h2>
-        <h3>Project 1: AI Prompt Library</h3>
-        <table>
-            <tr><td><strong>Description</strong></td><td>200+ optimized prompts for business</td></tr>
-        </table>
-
-        <h2>💻 Development Projects</h2>
-        <h3>Project 1: Personal Portfolio</h3>
-        <table>
-            <tr><td><strong>Description</strong></td><td>Responsive site built from scratch</td></tr>
-        </table>
+    <!-- Writing Cards -->
+    <div class="project-card cat-writing" data-cat="writing">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Writing</span>
+        <span class="visual-icon">✍️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">SEO Blog Campaign — E-commerce Brand</div>
+        <div class="card-desc">Wrote 12 long-form SEO articles (1,500–2,500 words each) for a UK-based e-commerce store selling sustainable homeware. Full keyword research, internal linking strategy, and structured headings included.</div>
+        <div class="card-tags">
+          <span class="card-tag">SEO Writing</span>
+          <span class="card-tag">Long-form</span>
+          <span class="card-tag">E-commerce</span>
+          <span class="card-tag">UK Client</span>
+        </div>
+        <div class="card-result">34% increase in organic traffic within 60 days</div>
+      </div>
     </div>
 
+    <div class="project-card cat-writing" data-cat="writing">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Writing</span>
+        <span class="visual-icon">📧</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Email Sequence — SaaS Onboarding</div>
+        <div class="card-desc">Wrote a 7-email onboarding sequence for a US-based SaaS startup. Copy focused on reducing churn in the first 14 days by driving feature adoption through clear, benefit-led messaging.</div>
+        <div class="card-tags">
+          <span class="card-tag">Email Copywriting</span>
+          <span class="card-tag">SaaS</span>
+          <span class="card-tag">Onboarding</span>
+          <span class="card-tag">US Client</span>
+        </div>
+        <div class="card-result">22% improvement in 14-day feature activation rate</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-writing" data-cat="writing">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Writing</span>
+        <span class="visual-icon">🏷️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Brand Voice Guide — African Fintech</div>
+        <div class="card-desc">Developed a full brand voice and tone guide for a Nairobi-based fintech startup, including messaging pillars, do/don't examples, social media tone, and a 10-piece sample content library.</div>
+        <div class="card-tags">
+          <span class="card-tag">Brand Voice</span>
+          <span class="card-tag">Copywriting</span>
+          <span class="card-tag">Fintech</span>
+          <span class="card-tag">Nairobi</span>
+        </div>
+        <div class="card-result">Used across all channels — 3 new hires onboarded with the guide</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-writing" data-cat="writing">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Writing</span>
+        <span class="visual-icon">📄</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Academic Research Papers — University Students</div>
+        <div class="card-desc">Edited and restructured 15+ research papers for undergraduate and postgraduate students across business, IT, and social sciences. All papers formatted to APA/MLA/Harvard as required.</div>
+        <div class="card-tags">
+          <span class="card-tag">Academic Writing</span>
+          <span class="card-tag">APA / MLA</span>
+          <span class="card-tag">Editing</span>
+          <span class="card-tag">Research</span>
+        </div>
+        <div class="card-result">Average grade improvement of one full band</div>
+      </div>
+    </div>
+
+    <!-- Web Dev Cards -->
+    <div class="project-card cat-dev" data-cat="dev">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Web Dev</span>
+        <span class="visual-icon">🏥</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Healthcare Clinic Website — Nairobi</div>
+        <div class="card-desc">Designed and built a 6-page custom website for a private healthcare clinic in Nairobi. Included an appointment booking form, service pages, Google Maps integration, and full mobile responsiveness.</div>
+        <div class="card-tags">
+          <span class="card-tag">HTML/CSS/JS</span>
+          <span class="card-tag">Healthcare</span>
+          <span class="card-tag">Custom Design</span>
+          <span class="card-tag">Responsive</span>
+        </div>
+        <div class="card-result">Clinic reports 40% of new appointments now come via the website</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-dev" data-cat="dev">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Web Dev</span>
+        <span class="visual-icon">🛍️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">WooCommerce Store — Fashion Brand</div>
+        <div class="card-desc">Built a full WooCommerce e-commerce store for a Kenyan fashion brand selling locally and internationally. Included product catalogue, Mpesa and PayPal integration, shipping zones, and inventory management.</div>
+        <div class="card-tags">
+          <span class="card-tag">WordPress</span>
+          <span class="card-tag">WooCommerce</span>
+          <span class="card-tag">E-Commerce</span>
+          <span class="card-tag">M-Pesa</span>
+        </div>
+        <div class="card-result">First 10 online sales within 72 hours of launch</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-dev" data-cat="dev">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Web Dev</span>
+        <span class="visual-icon">💼</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Personal Portfolio — Freelance Photographer</div>
+        <div class="card-desc">Built a visually stunning portfolio website for a Nairobi-based photographer. Masonry image gallery, lazy loading for performance, a contact/booking form, and a client testimonials section.</div>
+        <div class="card-tags">
+          <span class="card-tag">Portfolio Site</span>
+          <span class="card-tag">Gallery</span>
+          <span class="card-tag">Performance</span>
+          <span class="card-tag">HTML/CSS/JS</span>
+        </div>
+        <div class="card-result">Client booked 3 new jobs within 2 weeks of launch</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-dev" data-cat="dev">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Web Dev</span>
+        <span class="visual-icon">🚀</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Landing Page — Startup Product Launch</div>
+        <div class="card-desc">Designed and built a high-converting single-page landing site for a tech startup's product launch. Countdown timer, email capture form, animated sections, and mobile-first layout.</div>
+        <div class="card-tags">
+          <span class="card-tag">Landing Page</span>
+          <span class="card-tag">Conversion</span>
+          <span class="card-tag">Animation</span>
+          <span class="card-tag">React</span>
+        </div>
+        <div class="card-result">480 email sign-ups before the product launched</div>
+      </div>
+    </div>
+
+    <!-- AI Cards -->
+    <div class="project-card cat-ai" data-cat="ai">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">AI Services</span>
+        <span class="visual-icon">🤖</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Prompt Library — Marketing Agency</div>
+        <div class="card-desc">Built a 40-prompt custom AI library for a digital marketing agency, covering blog briefs, ad copy generation, client reporting templates, and social media captions — all tailored to their brand voice.</div>
+        <div class="card-tags">
+          <span class="card-tag">Prompt Engineering</span>
+          <span class="card-tag">ChatGPT</span>
+          <span class="card-tag">Marketing</span>
+          <span class="card-tag">Workflow</span>
+        </div>
+        <div class="card-result">Team saves 12+ hours per week on content production</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-ai" data-cat="ai">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">AI Services</span>
+        <span class="visual-icon">🏷️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Data Annotation — NLP Model Training</div>
+        <div class="card-desc">Completed a large-scale text annotation project for an AI company training a natural language processing model. Labelled 5,000+ sentence pairs for sentiment, intent, and quality scoring.</div>
+        <div class="card-tags">
+          <span class="card-tag">Data Annotation</span>
+          <span class="card-tag">NLP</span>
+          <span class="card-tag">RLHF</span>
+          <span class="card-tag">ML Training</span>
+        </div>
+        <div class="card-result">98.4% inter-rater agreement score on quality review</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-ai" data-cat="ai">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">AI Services</span>
+        <span class="visual-icon">⚙️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">AI Integration — Real Estate Firm</div>
+        <div class="card-desc">Helped a Nairobi real estate firm integrate AI into their content workflow. Set up ChatGPT for property descriptions, trained staff on prompting, and built a template system that reduced copywriting time by 70%.</div>
+        <div class="card-tags">
+          <span class="card-tag">AI Consulting</span>
+          <span class="card-tag">Workflow</span>
+          <span class="card-tag">Real Estate</span>
+          <span class="card-tag">Training</span>
+        </div>
+        <div class="card-result">Property listings now produced 3x faster</div>
+      </div>
+    </div>
+
+    <!-- Tutoring Cards -->
+    <div class="project-card cat-tutoring" data-cat="tutoring">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Tutoring</span>
+        <span class="visual-icon">🎓</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">KCSE English Preparation — Form 4 Student</div>
+        <div class="card-desc">Tutored a Form 4 student in English Language and Literature for 3 months ahead of KCSE. Focused on essay structure, comprehension strategy, and oral skills. Weekly sessions with custom notes.</div>
+        <div class="card-tags">
+          <span class="card-tag">English</span>
+          <span class="card-tag">KCSE Prep</span>
+          <span class="card-tag">In-Person</span>
+          <span class="card-tag">Nairobi</span>
+        </div>
+        <div class="card-result">Student went from D+ to B in final exam</div>
+      </div>
+    </div>
+
+    <div class="project-card cat-tutoring" data-cat="tutoring">
+      <div class="card-visual">
+        <div class="visual-bg"></div>
+        <span class="card-category-badge">Tutoring</span>
+        <span class="visual-icon">💡</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Business Studies — University Level (Online)</div>
+        <div class="card-desc">Provided weekly online tutoring to a university student in South Africa studying Business Studies and Research Methods. Helped structure a final dissertation chapter and improved exam technique.</div>
+        <div class="card-tags">
+          <span class="card-tag">Business Studies</span>
+          <span class="card-tag">Research Methods</span>
+          <span class="card-tag">Online · Zoom</span>
+          <span class="card-tag">South Africa</span>
+        </div>
+        <div class="card-result">Dissertation chapter passed with commendation</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section class="featured-section">
+  <p class="section-label">Case Studies</p>
+  <h2 class="section-title">Three Projects.<br><em>Deeper Dive.</em></h2>
+  <div class="featured-grid">
+    <div class="featured-card">
+      <div class="featured-visual">
+        <span class="featured-label-badge">⭐ Featured</span>
+        🏥
+      </div>
+      <div class="featured-body">
+        <h3>Full Brand + Website — Healthcare Clinic</h3>
+        <p>A private healthcare clinic in Nairobi had zero online presence. They were losing potential patients to competitors with basic websites. I came in as the only person they needed: I wrote all the copy, designed the site, built it from scratch, and set up their Google Business profile.</p>
+        <p style="margin-top:0.75rem; font-size:0.88rem; color:rgba(255,255,255,0.45); line-height:1.7;">The result was a 6-page custom site with appointment booking, service pages, staff bios, and testimonials — live within 3 weeks.</p>
+        <div class="featured-results">
+          <div class="result-chip"><div class="r-num">40%</div><div class="r-lbl">New Bookings via Web</div></div>
+          <div class="result-chip"><div class="r-num">3wk</div><div class="r-lbl">Delivery Time</div></div>
+          <div class="result-chip"><div class="r-num">6</div><div class="r-lbl">Pages Built</div></div>
+          <div class="result-chip"><div class="r-num">1</div><div class="r-lbl">Person. All of it.</div></div>
+        </div>
+        <div class="card-tags" style="margin-bottom:0;">
+          <span class="card-tag" style="color:rgba(255,255,255,0.5);">HTML/CSS/JS</span>
+          <span class="card-tag" style="color:rgba(255,255,255,0.5);">SEO Copy</span>
+          <span class="card-tag" style="color:rgba(255,255,255,0.5);">Google Business</span>
+          <span class="card-tag" style="color:rgba(255,255,255,0.5);">Booking Form</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-featured">
+      <div class="mini-card">
+        <div class="mini-icon">🤖</div>
+        <div>
+          <h5>AI Workflow — Marketing Agency</h5>
+          <p>Built a 40-prompt AI library and trained a 6-person team on using ChatGPT for client content at scale.</p>
+          <div class="mini-result">↗ 12+ hours saved per week</div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon">📈</div>
+        <div>
+          <h5>SEO Blog Campaign — UK E-Commerce</h5>
+          <p>12 long-form articles, full keyword strategy, and structured internal linking for a sustainable homeware brand.</p>
+          <div class="mini-result">↗ 34% organic traffic growth in 60 days</div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon">🎓</div>
+        <div>
+          <h5>KCSE English Tutoring — Form 4</h5>
+          <p>3 months of weekly sessions focused on essay structure, comprehension, and oral preparation for a Nairobi student.</p>
+          <div class="mini-result">↗ D+ to B in final KCSE exam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-strip">
+  <p class="section-label">Client Feedback</p>
+  <h2 class="section-title">What Clients Say<br><em>After Delivery.</em></h2>
+  <div class="testimonial-row">
+    <div class="t-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Gave Jeff the brief on Monday, had 4 polished articles by Friday. Every single one was better than what our previous writer produced in twice the time."</blockquote>
+      <div class="t-author">— Priya N.</div>
+      <div class="t-role">Content Director · UK</div>
+    </div>
+    <div class="t-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"The website Jeff built for us looks like something a big agency would charge ten times more for. Clean, fast, and exactly what we asked for. Incredible value."</blockquote>
+      <div class="t-author">— Marcus A.</div>
+      <div class="t-role">Startup Founder · Nairobi</div>
+    </div>
+    <div class="t-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Our whole team uses the prompt library Jeff built daily. It's become part of how we work. I wish we'd done this two years ago."</blockquote>
+      <div class="t-author">— Amara K.</div>
+      <div class="t-role">Agency Operations Lead · Ghana</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Seen Enough?<br><em>Let's Build Yours Next.</em></h2>
+  <p>Every project above started with one conversation. Yours can start today. Tell me what you need and I'll tell you exactly how I can help.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-primary">Start a Project →</a>
+    <a href="services.html" class="btn-outline">View Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Jeff Sclr</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p>© 2025 Jeff Sclr. All rights reserved.</p>
+</footer>
+
+<script>
+  // Filter logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach((card, i) => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) {
+          card.style.animationDelay = `${i * 0.06}s`;
+          card.style.animation = 'none';
+          requestAnimationFrame(() => { card.style.animation = ''; });
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
