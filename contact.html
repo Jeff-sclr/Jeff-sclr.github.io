@@ -1,55 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>About Me | Jeff Sclr</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Jeff Sclr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2d41;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f7f3ec;
+    --text: #1a1a2e;
+    --text-muted: #5a6478;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.2);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.3rem;
+    color: var(--gold); letter-spacing: 0.02em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.75);
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: 0.45rem 1.1rem; border-radius: 4px; font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--navy);
+    padding: 10rem 5rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 45%; height: 100%;
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .page-hero-inner { position: relative; z-index: 2; max-width: 600px; }
+  .page-hero .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.75rem; display: block;
+  }
+  .page-hero h1 {
+    font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.4rem);
+    color: var(--white); line-height: 1.2; font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+  .page-hero h1 em { color: var(--gold); font-style: italic; }
+  .page-hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.6);
+    line-height: 1.75; max-width: 480px;
+  }
+
+  /* ── CONTACT LAYOUT ── */
+  .contact-section {
+    padding: 6rem 5rem;
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 5rem; align-items: start;
+    background: var(--cream);
+  }
+
+  /* ── LEFT: CONTACT INFO ── */
+  .contact-info h2 {
+    font-family: var(--serif); font-size: 1.9rem;
+    color: var(--navy); font-weight: 700;
+    margin-bottom: 0.75rem; line-height: 1.2;
+  }
+  .contact-info h2 em { color: var(--gold); font-style: italic; }
+  .contact-info > p {
+    font-size: 0.98rem; color: var(--text-muted);
+    line-height: 1.75; margin-bottom: 2.5rem; max-width: 400px;
+  }
+
+  .contact-channels { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+
+  .channel-card {
+    display: flex; align-items: center; gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .channel-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--gold);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.25s;
+  }
+  .channel-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.09); border-color: var(--border); }
+  .channel-card:hover::before { transform: scaleY(1); }
+
+  .channel-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .channel-icon.whatsapp { background: rgba(37,211,102,0.12); }
+  .channel-icon.email { background: rgba(201,168,76,0.12); }
+  .channel-icon.location { background: rgba(13,27,42,0.08); }
+
+  .channel-text { flex: 1; }
+  .channel-label {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.2rem;
+  }
+  .channel-value {
+    font-size: 0.95rem; font-weight: 600; color: var(--navy);
+  }
+  .channel-action {
+    font-size: 0.78rem; color: var(--gold); font-weight: 500;
+    margin-top: 0.15rem;
+  }
+  .channel-arrow {
+    font-size: 1.1rem; color: var(--gold); opacity: 0.6;
+    transition: transform 0.2s;
+  }
+  .channel-card:hover .channel-arrow { transform: translateX(4px); opacity: 1; }
+
+  /* Response time badge */
+  .response-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 0.5rem 1rem;
+    font-size: 0.82rem; color: var(--gold); font-weight: 500;
+  }
+  .response-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 0 0 0 rgba(37,211,102,0.4);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(37,211,102,0); }
+    100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  /* ── RIGHT: FORM ── */
+  .contact-form-wrap {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 14px; padding: 2.5rem;
+  }
+  .form-title {
+    font-family: var(--serif); font-size: 1.4rem;
+    color: var(--navy); font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .form-sub {
+    font-size: 0.88rem; color: var(--text-muted);
+    margin-bottom: 2rem; line-height: 1.6;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; }
+  .form-group label {
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--navy);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--sans); font-size: 0.92rem;
+    background: var(--cream); color: var(--text);
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 6px; padding: 0.7rem 1rem;
+    outline: none; transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: #fff;
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select { cursor: pointer; }
+
+  .btn-submit {
+    width: 100%; background: var(--gold); color: var(--navy);
+    border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 700;
+    padding: 0.9rem 2rem; border-radius: 6px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .form-note {
+    font-size: 0.78rem; color: var(--text-muted);
+    text-align: center; margin-top: 0.75rem; line-height: 1.5;
+  }
+
+  /* ── SUCCESS MESSAGE ── */
+  .form-success {
+    display: none; text-align: center; padding: 2rem 0;
+  }
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .form-success h3 {
+    font-family: var(--serif); font-size: 1.5rem;
+    color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .form-success p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── FAQ STRIP ── */
+  .faq-section {
+    background: var(--navy-mid);
+    padding: 5rem;
+  }
+  .faq-section .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block;
+  }
+  .faq-section h2 {
+    font-family: var(--serif); font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+    color: var(--white); font-weight: 700; margin-bottom: 3rem; line-height: 1.2;
+  }
+  .faq-section h2 em { color: var(--gold); font-style: italic; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .faq-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.75rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .faq-item:hover { background: rgba(255,255,255,0.08); }
+  .faq-q {
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem;
+  }
+  .faq-q span { font-size: 1.1rem; color: var(--gold); transition: transform 0.25s; }
+  .faq-item.open .faq-q span { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 0.87rem; color: rgba(255,255,255,0.5);
+    line-height: 1.7; max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, margin-top 0.25s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; margin-top: 0.85rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy); text-align: center;
+    padding: 7rem 5rem;
+  }
+  .cta-section h2 {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white); margin-bottom: 1rem; font-weight: 700;
+  }
+  .cta-section h2 em { color: var(--gold); font-style: italic; }
+  .cta-section p { color: rgba(255,255,255,0.55); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.8rem 2rem; border-radius: 4px;
+    font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+    padding: 0.8rem 2rem; border-radius: 4px;
+    font-weight: 500; font-size: 0.9rem; text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #07111b;
+    padding: 2rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: var(--serif); color: var(--gold); font-size: 1.1rem; text-decoration: none; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page-hero-inner { animation: fadeUp 0.6s ease both 0.1s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .page-hero { padding: 8rem 1.5rem 3rem; }
+    .contact-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .faq-section { padding: 4rem 1.5rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
 <body>
-    </body>
-</html>
 
-    <nav>
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About</a> | 
-        <a href="services.html">Services</a> | 
-        <a href="portfolio.html">Portfolio</a> | 
-        <a href="testimonials.html">Testimonials</a> | 
-        <a href="blog.html">Blog</a> | 
-        <a href="contact.html">Contact</a> | 
-        <a href="extras.html">Extras</a>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Jeff Sclr</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
 
-    <hr>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="section-label">Get In Touch</span>
+    <h1>Let's Build Something<br><em>Worth Talking About.</em></h1>
+    <p>Whether you have a project in mind, a question to ask, or just want to explore what's possible — I'm one message away. Pick the channel that works for you.</p>
+  </div>
+</div>
 
-    <h1>📬 CONTACT ME</h1>
-    <p>I am always open to new projects, collaborations, and opportunities. Whether you have a specific brief in mind or just want to explore possibilities — let's talk!</p>
+<!-- CONTACT SECTION -->
+<div class="contact-section">
 
-    <h2>Get In Touch</h2>
-    <table border="1" cellpadding="5">
-        <tr><td>📧 <strong>Email</strong></td><td>youremail@gmail.com</td></tr>
-        <tr><td>📱 <strong>Phone / WhatsApp</strong></td><td>+254 793595960</td></tr>
-        <tr><td>🌐 <strong>Website</strong></td><td>Jeff-sclr.github.io</td></tr>
-        <tr><td>⏱️ <strong>Response Time</strong></td><td>Within 24 hours on business days</td></tr>
-        <tr><td>📍 <strong>Location</strong></td><td>Nairobi, Kenya (Available globally for remote work)</td></tr>
-    </table>
+  <!-- LEFT: INFO -->
+  <div class="contact-info">
+    <h2>Reach Me<br><em>Directly.</em></h2>
+    <p>No contact forms that go into the void. No assistant filtering your message. You get me — directly, promptly, and ready to help.</p>
 
-    <h2>What To Expect When You Reach Out</h2>
-    <ul>
-        <li>I will respond to your inquiry within 24 hours</li>
-        <li>We will schedule a free 20-minute discovery call to understand your needs</li>
-        <li>I will provide a clear proposal, timeline, and pricing</li>
-        <li>Upon agreement, we get started — with regular updates throughout</li>
-    </ul>
+    <div class="contact-channels">
 
-    <div style="background-color: #0056b3; color: white; padding: 20px; text-align: center;">
-        <h2>Ready to work together?</h2>
-        <p>Let's build something great. Reach out today.</p>
+      <!-- WhatsApp -->
+      <a class="channel-card" href="https://wa.me/16624002088" target="_blank" rel="noopener">
+        <div class="channel-icon whatsapp">💬</div>
+        <div class="channel-text">
+          <div class="channel-label">WhatsApp</div>
+          <div class="channel-value">+1 662 400 2088</div>
+          <div class="channel-action">Tap to open chat →</div>
+        </div>
+        <div class="channel-arrow">→</div>
+      </a>
+
+      <!-- Email -->
+      <a class="channel-card" href="mailto:mwasyajapheth6310@gmail.com" target="_blank" rel="noopener">
+        <div class="channel-icon email">✉️</div>
+        <div class="channel-text">
+          <div class="channel-label">Email</div>
+          <div class="channel-value">mwasyajapheth6310@gmail.com</div>
+          <div class="channel-action">Send a message →</div>
+        </div>
+        <div class="channel-arrow">→</div>
+      </a>
+
+      <!-- Location -->
+      <div class="channel-card" style="cursor:default;">
+        <div class="channel-icon location">📍</div>
+        <div class="channel-text">
+          <div class="channel-label">Location</div>
+          <div class="channel-value">Nairobi, Kenya</div>
+          <div class="channel-action">Available in-person & remote worldwide</div>
+        </div>
+      </div>
+
     </div>
 
-    <footer style="text-align: center; margin-top: 20px;">
-        <p>&copy; 2026 Jeff Sclr | All Rights Reserved</p>
-    </footer>
+    <div class="response-badge">
+      <div class="response-dot"></div>
+      Usually responds within 2–4 hours
+    </div>
+  </div>
 
+  <!-- RIGHT: FORM -->
+  <div class="contact-form-wrap">
+    <div id="contactForm">
+      <p class="form-title">Send Me a Message</p>
+      <p class="form-sub">Fill in the details below and I'll get back to you with a clear plan and honest pricing.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="John" required>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Doe" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="service">Service Needed</label>
+        <select id="service">
+          <option value="" disabled selected>Select a service...</option>
+          <option>Writing &amp; Content</option>
+          <option>Academic Tutoring</option>
+          <option>AI Training &amp; Services</option>
+          <option>Web Development</option>
+          <option>Not sure — I need advice</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="budget">Budget Range</label>
+        <select id="budget">
+          <option value="" disabled selected>Select a range...</option>
+          <option>Under $50</option>
+          <option>$50 – $150</option>
+          <option>$150 – $500</option>
+          <option>$500 – $1,000</option>
+          <option>$1,000+</option>
+          <option>Let's discuss</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Tell Me About Your Project</label>
+        <textarea id="message" placeholder="Describe what you need, your goals, timeline, and any relevant details..."></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="submitForm()">Send Message →</button>
+      <p class="form-note">Your information is never shared. Expect a reply within 24 hours.</p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✅</div>
+      <h3>Message Sent!</h3>
+      <p>Thanks for reaching out. I've received your message and will get back to you within 24 hours. In the meantime, feel free to WhatsApp me if it's urgent.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <span class="section-label">Common Questions</span>
+  <h2>Before You Reach Out,<br><em>Here Are the Answers.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How quickly can you start on my project? <span>+</span></div>
+      <div class="faq-a">For most projects I can begin within 24–48 hours of confirming the scope and receiving an initial deposit. Urgent same-day projects are sometimes possible — just ask.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you work with international clients? <span>+</span></div>
+      <div class="faq-a">Absolutely. I work with clients across Africa, Europe, North America, and beyond. All communication is online and I accept international payments via M-Pesa, PayPal, and bank transfer.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">What's your revision policy? <span>+</span></div>
+      <div class="faq-a">Every project includes at least two rounds of revisions. I'd rather spend the extra time getting it right than deliver something you're not proud of.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Can you handle multiple services at once? <span>+</span></div>
+      <div class="faq-a">Yes — and it's actually one of my biggest advantages. If you need a website built and the content written for it, or a tutoring session with a follow-up summary document, I handle both without any coordination gaps.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How do I pay? <span>+</span></div>
+      <div class="faq-a">I accept M-Pesa, PayPal, Wise, and bank transfers. A 50% deposit is required to start, with the balance due on delivery. Full payment may be required for smaller jobs under $50.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">What if I'm not sure what I need? <span>+</span></div>
+      <div class="faq-a">That's fine — actually common. Just describe your problem or goal and I'll recommend the right approach. The consultation is free and there's no pressure to proceed if it's not the right fit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Still Thinking About It?<br><em>Don't.</em></h2>
+  <p>Every day you wait is a day your competitor gets ahead. Send one message. Let's figure out the rest together.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/16624002088" target="_blank" class="btn-primary">WhatsApp Me Now →</a>
+    <a href="portfolio.html" class="btn-outline">See My Work First</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Jeff Sclr</a>
+  <ul class="footer-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p>© 2025 Jeff Sclr. All rights reserved.</p>
+</footer>
+
+<script>
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!fname || !email || !message) {
+      alert('Please fill in your name, email, and message before sending.');
+      return;
+    }
+
+    // Build mailto link with form data
+    const service = document.getElementById('service').value || 'Not specified';
+    const budget = document.getElementById('budget').value || 'Not specified';
+    const lname = document.getElementById('lname').value.trim();
+    const fullName = fname + (lname ? ' ' + lname : '');
+    const subject = encodeURIComponent('New Project Inquiry from ' + fullName);
+    const body = encodeURIComponent(
+      'Name: ' + fullName + '\n' +
+      'Email: ' + email + '\n' +
+      'Service: ' + service + '\n' +
+      'Budget: ' + budget + '\n\n' +
+      'Message:\n' + message
+    );
+
+    window.location.href = 'mailto:mwasyajapheth6310@gmail.com?subject=' + subject + '&body=' + body;
+
+    // Show success
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  function toggleFaq(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+</script>
 </body>
 </html>
